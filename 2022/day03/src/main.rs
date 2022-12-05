@@ -4,11 +4,11 @@ use std::fs;
 fn main() {
     let input = fs::read_to_string("./input.txt").expect("couldn't read the file");
     let lines: Vec<&str> = input.lines().collect();
-    // println!("{}", part1(lines));
-    println!("{}", part2(lines));
+    println!("{}", part1(&lines));
+    println!("{}", part2(&lines));
 }
 
-fn part1(input: Vec<&str>) -> i32 {
+fn part1(input: &Vec<&str>) -> i32 {
     let backpacks: Vec<i32> = input
         .iter()
         .map(|backpack| {
@@ -25,7 +25,7 @@ fn part1(input: Vec<&str>) -> i32 {
     backpacks.iter().sum()
 }
 
-fn part2(input: Vec<&str>) -> i32 {
+fn part2(input: &Vec<&str>) -> i32 {
     let backpacks = input.into_iter();
     let mut total_score = 0;
     for (backpack1, backpack2, backpack3) in backpacks.tuples() {
