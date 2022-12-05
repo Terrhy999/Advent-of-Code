@@ -1,9 +1,11 @@
+use itertools::Itertools;
 use std::fs;
 
 fn main() {
     let input = fs::read_to_string("./input.txt").expect("couldn't read the file");
     let lines: Vec<&str> = input.lines().collect();
-    println!("{}", part1(lines));
+    // println!("{}", part1(lines));
+    println!("{}", part2(lines));
 }
 
 fn part1(input: Vec<&str>) -> i32 {
@@ -21,6 +23,21 @@ fn part1(input: Vec<&str>) -> i32 {
         })
         .collect();
     backpacks.iter().sum()
+}
+
+fn part2(input: Vec<&str>) -> i32 {
+    let backpacks = input.into_iter();
+    let mut total_score = 0;
+    for (backpack1, backpack2, backpack3) in backpacks.tuples() {
+        let mut common_character = ' ';
+        for item in backpack1.chars() {
+            if backpack2.contains(item) && backpack3.contains(item) {
+                common_character = item;
+            }
+        }
+        total_score += item_to_score(common_character);
+    }
+    total_score
 }
 
 fn item_to_score(item: char) -> i32 {
